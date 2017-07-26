@@ -5,7 +5,6 @@
  */
 package gramatika;
 
-import gramatika.MyHighlighter;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import javax.swing.SwingWorker;
@@ -81,6 +80,19 @@ public class ListenerDocument
         Thread.sleep(interval);
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Override
     public void insertUpdate(DocumentEvent e) {
         if (documentEvent == null) {

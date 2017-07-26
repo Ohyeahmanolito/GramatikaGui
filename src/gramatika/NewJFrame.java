@@ -5,8 +5,6 @@
  */
 package gramatika;
 
-import javax.swing.JMenuItem;
-
 /**
  *
  * @author Ichi
@@ -22,7 +20,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         // Initialized all listener
         ListenerDocument myDocumentListener = new ListenerDocument(jTextPane1.getHighlighter());
-        ListenerMouse myMouseListener = new ListenerMouse(jTextPane1);
+        ListenerMouse myMouseListener = new ListenerMouse(jTextPane1,jScrollPane1, jPopupMenu1);
 
         // Add all listener
         jTextPane1.getDocument().addDocumentListener(myDocumentListener);
@@ -34,12 +32,9 @@ public class NewJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
-
-        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,7 +94,6 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;

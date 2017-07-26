@@ -19,12 +19,14 @@ import javax.swing.text.Highlighter;
 public class MyHighlighter {
 
     private final Highlighter.HighlightPainter redPainter = new DefaultHighlighter.DefaultHighlightPainter(Color.red);
-    static LinkedHashMap<Integer, String> wordCharPosition = null;
+    static LinkedHashMap<String, Integer> wordCharPosition = null;
+    static LinkedHashMap<String, LinkedHashSet<String>> suggestions = null;
 
     /**
      * This method highlights the detected erroneous words of the spell checking
      * system.
      *
+     * @param sentences - List of tokenized sentences
      * @param suggestions - the returned list of errorWord_candidateSuggestion
      * of the spell checking system.
      * @param highlighter - the highlighter color that will be used.
@@ -55,7 +57,7 @@ public class MyHighlighter {
         int wordCounter = 0;
         int characterCount = 0;
         int extraStart = 0;
-
+        this.suggestions = suggestions;
         LinkedHashSet<Integer> suggestionKey = new LinkedHashSet<>();
         wordCharPosition = new LinkedHashMap<>();
 
@@ -63,11 +65,9 @@ public class MyHighlighter {
         for (String temp : suggestions.keySet()) {
             String wordCount = temp.split("_")[0];
             String errorWord = temp.split("_")[1];
-            System.out.println("spelling erorr: " + wordCount + " " + errorWord);
+            //System.out.println("spelling erorr: " + wordCount + " " + errorWord);
             suggestionKey.add(Integer.parseInt(wordCount));
 
-            // Only gets the wordCount and update its value once the character positions are identified.
-            wordCharPosition.put(Integer.parseInt(wordCount), "");
         }
 
         LinkedHashSet<String> highlighPos = new LinkedHashSet<>();
@@ -83,7 +83,7 @@ public class MyHighlighter {
                     highlighPos.add(start + "_" + end);
 
                     // update the positions of the word.
-                    wordCharPosition.replace(wordCounter, start + "_" + end);
+                    wordCharPosition.put(start + "_" + end, wordCounter);
                 }
                 characterCount += word.length();
             }
@@ -94,13 +94,23 @@ public class MyHighlighter {
     }
 
     /**
+     * This method is used by the ListenerMouse to give POSITION of the
+     * erroneous selected text in the document.
+     *
+     * @return list of each words' start and end character position in the
+     * document.
+     */
+    public static LinkedHashMap<String, Integer> getWordCharPosition() {
+        return wordCharPosition;
+    }
+
+    /**
      * This method is used by the ListenerMouse to give the suggestion of the
      * selected text in the document.
      *
-     * @return the word with its start and end character position in the
-     * document.
+     * @return list of each words' candidate suggestions.
      */
-    public static LinkedHashMap<Integer, String> getWordCharPosition() {
-        return wordCharPosition;
+    public static LinkedHashMap<String, LinkedHashSet<String>> getSuggestions() {
+        return suggestions;
     }
 }
